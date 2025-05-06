@@ -58,30 +58,37 @@ pipeline {
         
         post {
              failure {
+                script {
+                    def msg = "FAILED to deploy ${ENVIRONMENT} version ${VERSION} "
+                
                 slackSend(
                     channel: '#jenkins',
                     color: 'danger',
-                    message: "FAILED to deploy ${ENVIRONMENT} version ${VERSION} "
+                    message: msg
                 )
                 
                 emailext(
                     subject: "${JOB_NAME}.${BUILD_NUMBER} FAILED",
                     mimeType: 'text/html',
                     to: "$email",
-                    body: "FAILED to deploy ${ENVIRONMENT} version ${VERSION} "
+                    body: msg
                 )
             }
+             }
             success {
+                script {
+                    def msg = "PASSED to deploy ${ENVIRONMENT} version ${VERSION}  http://stage.yp3yp3.online/"
+                }
                 slackSend(
                     channel: '#jenkins',
                     color: 'good',
-                    message: "PASSED to deploy ${ENVIRONMENT} version ${VERSION}  http://stage.yp3yp3.online/"
+                    message: msg
                 )
                 emailext(
                     subject: "${JOB_NAME}.${BUILD_NUMBER} PASSED",
                     mimeType: 'text/html',
                     to: "$email",
-                    body: "PASSED to deploy ${ENVIRONMENT} version ${VERSION}  http://stage.yp3yp3.online/"
+                    body: msg
                 )
             }
 
