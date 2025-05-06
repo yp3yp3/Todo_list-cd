@@ -8,7 +8,7 @@ pipeline {
         REMOTE_HOST_PRODUCTION = '172.31.40.242'
         DB_HOST = '172.31.42.89'
         VERSION = ''
-        environment = ''
+        ENVIRONMENT = ''
 
     }
     stages {
@@ -16,7 +16,7 @@ pipeline {
             when { changeset "stage_version.txt" }
             steps {
                 script {
-                    env.environment = 'staging'
+                    env.ENVIRONMENT = 'staging'
                     env.VERSION = readFile('stage_version.txt').trim()
                     echo "📦 Extracted version from file: ${VERSION}"
                     withCredentials([usernamePassword(credentialsId: 'DB_PASS', passwordVariable: 'DB_PASSWORD', usernameVariable: 'DB_USERNAME')]) {
@@ -37,7 +37,7 @@ pipeline {
             when { changeset "production_version.txt" }
             steps {
                 script {
-                    env.environment = 'production'
+                    env.ENVIRONMENT = 'production'
                     env.VERSION = readFile('production_version.txt').trim()
                     echo "📦 Extracted version from file: ${VERSION}"
                     withCredentials([usernamePassword(credentialsId: 'DB_PASS', passwordVariable: 'DB_PASSWORD', usernameVariable: 'DB_USERNAME')]) {
@@ -61,27 +61,27 @@ pipeline {
                 slackSend(
                     channel: '#jenkins',
                     color: 'danger',
-                    message: "FAILED to deploy ${environment} version ${VERSION} "
+                    message: "FAILED to deploy ${ENVIRONMENT} version ${VERSION} "
                 )
                 
                 emailext(
                     subject: "${JOB_NAME}.${BUILD_NUMBER} FAILED",
                     mimeType: 'text/html',
                     to: "$email",
-                    body: "FAILED to deploy ${environment} version ${VERSION} "
+                    body: "FAILED to deploy ${ENVIRONMENT} version ${VERSION} "
                 )
             }
             success {
                 slackSend(
                     channel: '#jenkins',
                     color: 'good',
-                    message: "PASSED to deploy ${environment} version ${VERSION}  http://stage.yp3yp3.online/"
+                    message: "PASSED to deploy ${ENVIRONMENT} version ${VERSION}  http://stage.yp3yp3.online/"
                 )
                 emailext(
                     subject: "${JOB_NAME}.${BUILD_NUMBER} PASSED",
                     mimeType: 'text/html',
                     to: "$email",
-                    body: "PASSED to deploy ${environment} version ${VERSION}  http://stage.yp3yp3.online/"
+                    body: "PASSED to deploy ${ENVIRONMENT} version ${VERSION}  http://stage.yp3yp3.online/"
                 )
             }
 
