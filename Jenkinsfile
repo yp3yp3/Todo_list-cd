@@ -7,8 +7,6 @@ pipeline {
         REMOTE_HOST_STAGE = '172.31.40.99'
         REMOTE_HOST_PRODUCTION = '172.31.40.242'
         DB_HOST = '172.31.42.89'
-        VERSION = ''
-        ENVIRONMENT = ''
 
     }
     stages {
@@ -59,7 +57,11 @@ pipeline {
         post {
              failure {
                 script {
-                    def msg = "FAILED to deploy ${env.ENVIRONMENT} version ${env.VERSION} "
+                    if (env.VERSION && env.ENVIRONMENT) {
+                        def msg = "FAILED to deploy ${env.ENVIRONMENT} version ${env.VERSION} "
+                    } else {
+                        def msg = "FAILED "
+                    }
                 
                 slackSend(
                     channel: '#jenkins',
@@ -77,7 +79,12 @@ pipeline {
              }
             success {
                 script {
-                    def msg = "PASSED to deploy ${env.ENVIRONMENT} version ${env.VERSION}  http://stage.yp3yp3.online/"
+                    if (env.VERSION && env.ENVIRONMENT) {
+                        def msg = def msg = "success to deploy ${env.ENVIRONMENT} version ${env.VERSION}  http://stage.yp3yp3.online/"
+                    } else {
+                        def msg = "success"
+                    }
+                    
                 
                 slackSend(
                     channel: '#jenkins',
