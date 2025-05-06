@@ -57,10 +57,11 @@ pipeline {
         post {
              failure {
                 script {
+                    def msg = ''
                     if (env.VERSION && env.ENVIRONMENT) {
-                        def msg = "FAILED to deploy ${env.ENVIRONMENT} version ${env.VERSION} "
+                         msg = "FAILED to deploy ${env.ENVIRONMENT} version ${env.VERSION} "
                     } else {
-                        def msg = "FAILED "
+                         msg = "FAILED "
                     }
                 
                 slackSend(
@@ -79,10 +80,11 @@ pipeline {
              }
             success {
                 script {
+                    def msg = ''
                     if (env.VERSION && env.ENVIRONMENT) {
-                         def msg = "success to deploy ${env.ENVIRONMENT} version ${env.VERSION}  http://stage.yp3yp3.online/"
+                          msg = "success to deploy ${env.ENVIRONMENT} version ${env.VERSION}  http://stage.yp3yp3.online/"
                     } else {
-                        def msg = "success"
+                         msg = "success"
                     }
                     
                 
