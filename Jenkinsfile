@@ -78,7 +78,7 @@ pipeline {
             success {
                 script {
                     def msg = "PASSED to deploy ${env.ENVIRONMENT} version ${env.VERSION}  http://stage.yp3yp3.online/"
-                }
+                
                 slackSend(
                     channel: '#jenkins',
                     color: 'good',
@@ -91,6 +91,6 @@ pipeline {
                     body: msg
                 )
             }
-
+            }
         }
     }
