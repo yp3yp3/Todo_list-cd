@@ -59,7 +59,7 @@ pipeline {
         post {
              failure {
                 script {
-                    def msg = "FAILED to deploy ${ENVIRONMENT} version ${VERSION} "
+                    def msg = "FAILED to deploy ${env.ENVIRONMENT} version ${env.VERSION} "
                 
                 slackSend(
                     channel: '#jenkins',
@@ -77,7 +77,7 @@ pipeline {
              }
             success {
                 script {
-                    def msg = "PASSED to deploy ${ENVIRONMENT} version ${VERSION}  http://stage.yp3yp3.online/"
+                    def msg = "PASSED to deploy ${env.ENVIRONMENT} version ${env.VERSION}  http://stage.yp3yp3.online/"
                 }
                 slackSend(
                     channel: '#jenkins',
