@@ -13,7 +13,7 @@ pipeline {
             when { changeset "stage_version.txt" }
             steps {
                 script {
-                    def VERSION = readFile('stage_version.txt').trim()
+                    def env.VERSION = readFile('stage_version.txt').trim()
                     echo "📦 Extracted version from file: ${VERSION}"
                     withCredentials([usernamePassword(credentialsId: 'DB_PASS', passwordVariable: 'DB_PASSWORD', usernameVariable: 'DB_USERNAME')]) {
                     sshagent (credentials: ['node1']) {
