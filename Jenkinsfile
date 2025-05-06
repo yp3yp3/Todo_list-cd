@@ -80,7 +80,7 @@ pipeline {
             success {
                 script {
                     if (env.VERSION && env.ENVIRONMENT) {
-                        def msg = def msg = "success to deploy ${env.ENVIRONMENT} version ${env.VERSION}  http://stage.yp3yp3.online/"
+                         def msg = "success to deploy ${env.ENVIRONMENT} version ${env.VERSION}  http://stage.yp3yp3.online/"
                     } else {
                         def msg = "success"
                     }
