@@ -14,7 +14,7 @@ pipeline {
             steps {
                 script {
                     def VERSION = readFile('stage_version.txt').trim()
-                    echo "📦 Extracted version from file: ${version}"
+                    echo "📦 Extracted version from file: ${VERSION}"
                     withCredentials([usernamePassword(credentialsId: 'DB_PASS', passwordVariable: 'DB_PASSWORD', usernameVariable: 'DB_USERNAME')]) {
                     sshagent (credentials: ['node1']) {
                         sh """
