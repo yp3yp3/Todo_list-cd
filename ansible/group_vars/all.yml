@@ -1,5 +1,5 @@
 app_image: yp3yp3/to_do_list
-prod_tag: 2
+prod_tag: 8
 stage_tag: 1
 
 db_image: mysql
