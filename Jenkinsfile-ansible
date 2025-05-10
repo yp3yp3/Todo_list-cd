@@ -10,6 +10,7 @@ pipeline {
             steps {
                 withCredentials([sshUserPrivateKey(credentialsId: 'node1', keyFileVariable: 'PEM_FILE', usernameVariable: 'SSH_USER')]) {
                     sh '''
+                        export ANSIBLE_HOST_KEY_CHECKING=False
                         chmod 400 $PEM_FILE
                         cd ansible
                         ansible-playbook -i inventory.ini playbook.yaml \
