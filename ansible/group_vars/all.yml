@@ -1,0 +1,16 @@
+app_image: yp3yp3/to_do_list
+prod_tag: 2
+stage_tag: 3
+
+db_image: mysql
+db_tag: "8.0"
+db_root_password: password
+db_name: todo
+db_user: myuser
+db_password: pass
+
+nginx_image: nginx
+nginx_tag: latest
+
+db_host: "{{ hostvars['db1'].ansible_host }}"
+ 

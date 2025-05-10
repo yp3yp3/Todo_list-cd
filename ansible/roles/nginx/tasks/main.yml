@@ -1,0 +1,16 @@
+    - name: copy nginx conf file
+      copy:
+        src: default.conf
+        dest: ~/default.conf
+
+    - name: run nginx container
+      docker_container:
+        name: nginx
+        image: "{{ nginx_image }}:{{ nginx_tag }}"
+        restart_policy: always
+        env:
+          APP_1_HOST: "{{ hostvars['app1'].ansible_host }}"
+          APP_2_HOST: "{{ hostvars['app2'].ansible_host }}"
+        ports: "80:80"
+        volumes:
+           - ~/default.conf:/etc/nginx/templates/default.conf.template
