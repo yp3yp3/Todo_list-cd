@@ -1,6 +1,6 @@
 app_image: yp3yp3/to_do_list
 prod_tag: 3
-stage_tag: 3
+stage_tag: 5
 
 db_image: mysql
 db_tag: "8.0"
