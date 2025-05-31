@@ -25,7 +25,7 @@ pipeline {
                     return sh(script: '''
                         cd ansible
                         git status --porcelain inventory.ini | grep inventory.ini > /dev/null
-                    ''', returnStdout: true).trim() == "0"
+                    ''', returnStatus: true).trim() == "0"
                     }
                 }
              steps {
