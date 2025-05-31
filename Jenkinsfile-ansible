@@ -8,7 +8,7 @@ pipeline {
         stage('Deploy with terraform') {
             when { changeset "terraform/**" }
               steps {
-                withCredentials([usernamePassword(credentialsId: 'aws', usernameVariable: 'AWS_ACCESS_KEY_ID', passwordVariable: 'AWS_SECRET_ACCESS_KEY')]) {
+                withAWS(credentials: 'aws') {
                 sh '''
                     
                     cd terraform
