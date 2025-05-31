@@ -40,7 +40,7 @@ pipeline {
              steps {
                 withCredentials([usernamePassword(credentialsId: 'github_token', usernameVariable: 'GIT_USERNAME', passwordVariable: 'GIT_TOKEN')]) {
                 sh '''
-                    cd path/to/ansible
+                    cd ansible
 
                     git config user.name "jenkins"
                     git config user.email "ci@company.com"
