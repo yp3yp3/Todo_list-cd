@@ -47,7 +47,7 @@ pipeline {
 
                     git add inventory.ini
                     git commit -m "🔄 Update inventory from Terraform"
-                    git push https://${GIT_USERNAME}:${GIT_TOKEN}@yp3yp3/Todo_list-cd.git main
+                    git push https://${GIT_USERNAME}:${GIT_TOKEN}@github.com/yp3yp3/Todo_list-cd.git main
                 '''
                 }
             }
