@@ -23,7 +23,7 @@ pipeline {
                 when {
                     expression {
                     return sh(script: '''
-                        cd path/to/ansible
+                        cd ansible
                         git status --porcelain inventory.ini | grep inventory.ini
                         echo $?
                     ''', returnStdout: true).trim() == "0"
