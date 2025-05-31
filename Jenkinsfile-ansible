@@ -19,6 +19,15 @@ pipeline {
                 }
             }
             }
+            stage('DEBUG git diff') {
+  steps {
+    sh '''
+      cd ansible
+      git status
+      git status --porcelain inventory.ini
+    '''
+  }
+}
             stage('Push updated inventory to Git') {
                 when {
                     expression {
