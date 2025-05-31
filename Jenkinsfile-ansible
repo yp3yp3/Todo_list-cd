@@ -5,6 +5,46 @@ pipeline {
 
     }
     stages {
+        stage('Deploy with terraform') {
+            when { changeset "terraform/**" }
+              steps {
+                withCredentials([usernamePassword(credentialsId: 'aws', usernameVariable: 'AWS_ACCESS_KEY_ID', passwordVariable: 'AWS_SECRET_ACCESS_KEY')]) {
+                sh '''
+                    
+                    cd terraform
+                    terraform init
+                    terraform plan
+                    terraform apply -auto-approve
+                '''
+                }
+            }
+            }
+            stage('Push updated inventory to Git') {
+                when {
+                    expression {
+                    return sh(script: '''
+                        cd path/to/ansible
+                        git status --porcelain inventory.ini | grep inventory.ini
+                        echo $?
+                    ''', returnStdout: true).trim() == "0"
+                    }
+                }
+             steps {
+                withCredentials([usernamePassword(credentialsId: 'github-token', usernameVariable: 'GIT_USERNAME', passwordVariable: 'GIT_TOKEN')]) {
+                sh '''
+                    cd path/to/ansible
+
+                    git config user.name "jenkins"
+                    git config user.email "ci@company.com"
+
+                    git add inventory.ini
+                    git commit -m "🔄 Update inventory from Terraform"
+                    git push https://${GIT_USERNAME}:${GIT_TOKEN}@github.com/your-org/your-repo.git main
+                '''
+                }
+            }
+            }
+        
         stage('Deploy with ansible') {
             when { changeset "ansible/**" }
             steps {
