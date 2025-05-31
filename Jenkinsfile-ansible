@@ -24,8 +24,7 @@ pipeline {
                     expression {
                     return sh(script: '''
                         cd ansible
-                        git status --porcelain inventory.ini | grep inventory.ini
-                        echo $?
+                        git status --porcelain inventory.ini | grep inventory.ini > /dev/null
                     ''', returnStdout: true).trim() == "0"
                     }
                 }
