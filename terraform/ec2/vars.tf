@@ -17,7 +17,7 @@ variable "tags" {
 variable "subnets_ids" {
   type = list(string)
 }
-variable "count" {
+variable "instances_count" {
   type    = number
   default = 1
 }
@@ -28,9 +28,12 @@ variable "ec2_name" {
   type    = string
   default = "my-ec2-instance"
 }
-variable "port_to _open" {
+variable "port_to_open" {
   type    = number
 }
 variable "adress_to_open" {
   type    = string
+}
+variable "vpc_id" {
+  type = string
 }

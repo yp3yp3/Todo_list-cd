@@ -12,3 +12,6 @@ variable "lb_name" {
   type    = string
   default = "my-app-alb"
 }
+variable "app_port" {
+  type    = number
+}

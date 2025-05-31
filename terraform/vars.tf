@@ -19,5 +19,12 @@ variable "app_instance_count" {
 }
 variable "app_port" {
   type    = number
-
+}
+variable "app_name" {
+  type    = string
+  default = "my-app"
+}
+variable "sub_domain" {
+  type    = string
+  default = "app"
 }

@@ -1,7 +1,7 @@
 resource "aws_lb" "alb" {
   name               = var.lb_name
   load_balancer_type = "application"
-  security_groups    = aws_security_group.alb_sg.id
+  security_groups    = [aws_security_group.alb_sg.id]
   subnets            = var.subnets_ids
 
 }
@@ -31,13 +31,14 @@ resource "aws_lb_listener_rule" "alb_listener_rule" {
   }
 
   condition {
-    field  = "path-pattern"
+    path_pattern {
     values = ["/*"]
+    }
   }
 }
 resource "aws_lb_target_group" "alb_target_group" {
   name     = "${var.lb_name}-tg"
-  port     = 5000
+  port     = var.app_port
   protocol = "HTTP"
   vpc_id   = var.vpc_id
 
@@ -50,10 +51,10 @@ resource "aws_lb_target_group" "alb_target_group" {
   }
 }
 resource "aws_lb_target_group_attachment" "alb_target_group_attachment" {
-  count               = lenth(var.instances_id)
+  count               = length(var.instances_id)
   target_group_arn   = aws_lb_target_group.alb_target_group.arn
   target_id          = var.instances_id[count.index]
-  port               = 5000
+  port               = var.app_port
 
   lifecycle {
     create_before_destroy = true

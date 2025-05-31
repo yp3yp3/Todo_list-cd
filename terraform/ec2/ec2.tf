@@ -3,11 +3,11 @@ provider aws {
 }
 
 resource "aws_instance" "ec2_instance" {
-  count             = var.count
+  count             = var.instances_count
   ami               = var.ami_id
   instance_type    = var.instance_type
   subnet_id        = var.subnets_ids[count.index]
-  vpc_security_group_ids = aws_security_group.ec2_sg.id
+  vpc_security_group_ids = [aws_security_group.ec2_sg.id]
   tags =   merge(
     {
       Name = "${var.ec2_name}-${count.index + 1}"
@@ -26,7 +26,7 @@ resource "aws_security_group" "ec2_sg" {
   vpc_id      = var.vpc_id
 
   ingress {
-    from_port   = var
+    from_port   = 22
     to_port     = 22
     protocol    = "tcp"
     cidr_blocks = [var.adress_to_open]
