@@ -44,7 +44,7 @@ pipeline {
 
                     git config user.name "jenkins"
                     git config user.email "ci@company.com"
-
+                    git checkout main
                     git add inventory.ini
                     git commit -m "🔄 Update inventory from Terraform"
                     git push https://${GIT_USERNAME}:${GIT_TOKEN}@github.com/yp3yp3/Todo_list-cd.git main
