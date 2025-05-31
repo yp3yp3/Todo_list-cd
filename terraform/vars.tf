@@ -28,3 +28,7 @@ variable "sub_domain" {
   type    = string
   default = "app"
 }
+variable "key_name" {
+  type    = string
+
+}

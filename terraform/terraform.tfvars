@@ -6,3 +6,4 @@ app_instance_count = 2
 app_port = 5000
 app_name = "todo-list"
 sub_domain = "todo"
+key_name = "franqfurt"
