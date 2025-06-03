@@ -10,7 +10,7 @@ module "vpc" {
 module "app" {
   source = "./ec2"
   aws_region = var.aws_region
-  key_name = var.key_name
+  key_name1 = var.key_name
   instance_type = "t2.micro"
   ami_id = var.ami_id
   subnets_ids = module.vpc.private_subnets
@@ -25,7 +25,7 @@ module "db" {
   source = "./ec2"
   aws_region = var.aws_region
   instance_type = "t2.micro"
-  key_name = var.key_name
+  key_name1 = var.key_name
   ami_id = var.ami_id
   subnets_ids = module.vpc.database_subnets
   instances_count = 1
@@ -39,7 +39,7 @@ module "stage" {
   source = "./ec2"
   aws_region = var.aws_region
   instance_type = "t2.nano"
-  key_name = var.key_name
+  key_name1 = var.key_name
   ami_id = var.ami_id
   subnets_ids = module.vpc.private_subnets
   instances_count = 1

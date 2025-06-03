@@ -37,6 +37,6 @@ variable "adress_to_open" {
 variable "vpc_id" {
   type = string
 }
-variable "key_name" {
+variable "key_name1" {
   type    = string
 }

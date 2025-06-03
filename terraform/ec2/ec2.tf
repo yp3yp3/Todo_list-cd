@@ -8,6 +8,7 @@ resource "aws_instance" "ec2_instance" {
   instance_type    = var.instance_type
   subnet_id        = var.subnets_ids[count.index]
   vpc_security_group_ids = [aws_security_group.ec2_sg.id]
+  key_name         = var.key_name1
   tags =   merge(
     {
       Name = "${var.ec2_name}-${count.index + 1}"
