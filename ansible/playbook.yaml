@@ -3,15 +3,18 @@
   roles: [docker]
 
 - hosts: db
+  become: yes
   roles: [db]
 
 - hosts: app
+  become: yes
   roles:
   - role: app
     vars:
       app_tag: "{{ prod_tag }}"
 
 - hosts: stage
+  become: yes
   roles:
   - role: app
     vars:
