@@ -23,6 +23,7 @@ kind: PersistentVolumeClaim
 metadata:
   name: pvc-mysql
 spec:
+  storageClassName: gp2
   accessModes:
     - ReadWriteOnce
   resources:
@@ -254,8 +255,9 @@ metadata:
   creationTimestamp: null
   name: todo
 spec:
+  ingressClassName: nginx
   rules:
-  - host: todo.com
+  - host: todo.yp3yp3.online
     http:
       paths:
       - backend:
@@ -272,7 +274,7 @@ spec:
               number: 5000
         path: /stage
         pathType: Prefix
-  - host: stage.todo.com
+  - host: stage.todo.yp3yp3.online
     http:
       paths:
       - backend:
@@ -284,4 +286,3 @@ spec:
         pathType: Prefix
 status:
   loadBalancer: {}
-
