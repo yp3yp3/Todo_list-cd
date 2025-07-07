@@ -257,7 +257,7 @@ metadata:
 spec:
   ingressClassName: nginx
   rules:
-  - host: todo.yp3yp3.online
+  - host: todo.yp3yp3.site
     http:
       paths:
       - backend:
@@ -274,7 +274,7 @@ spec:
               number: 5000
         path: /stage
         pathType: Prefix
-  - host: stage.todo.yp3yp3.online
+  - host: stage.todo.yp3yp3.site
     http:
       paths:
       - backend:
