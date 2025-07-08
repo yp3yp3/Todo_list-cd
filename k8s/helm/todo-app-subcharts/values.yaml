@@ -27,5 +27,5 @@ mysql:
     port: 3306
     name: mysql-svc
 ingress:
-  app_host: todo.yp3yp3.online
+  app_host: todo.yp3yp3.site
   ingressClassName: nginx
