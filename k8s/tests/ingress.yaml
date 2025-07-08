@@ -3,8 +3,6 @@ kind: Ingress
 metadata:
   creationTimestamp: null
   name: argocd
-  namespace: argocd
-
 spec:
   rules:
   - host: nginx.yp3yp3.site
