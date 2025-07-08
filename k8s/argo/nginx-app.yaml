@@ -3,17 +3,17 @@ kind: Application
 metadata:
   name: test
 spec:
-  destination:
-    namespace: test
-    server: https://kubernetes.default.svc
+  project: default
   source:
-    path: k8s/tests
     repoURL: https://github.com/yp3yp3/Todo_list-cd
+    path: k8s/tests
     targetRevision: HEAD
     directory:
-      include: nginx.yaml
-  sources: []
-  project: default
+      recurse: true
+      jsonnet: {}
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: test
   syncPolicy:
     automated:
       prune: true
