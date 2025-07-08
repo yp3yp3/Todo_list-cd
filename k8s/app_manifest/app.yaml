@@ -205,7 +205,7 @@ spec:
         app: todo-app-stage
     spec:
       containers:
-      - image: yp3yp3/to_do_list:2
+      - image: yp3yp3/to_do_list:1
         name: to-do-list-stage
         resources: {}
         env:
