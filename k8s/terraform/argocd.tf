@@ -1,12 +1,3 @@
-terraform {
-  required_providers {
-    kubectl = {
-      source  = "gavinbunney/kubectl"
-      version = "~> 1.14"
-    }
-  }
-}
-
 provider "kubectl" {
   host                   = module.eks.cluster_endpoint
   token                  = data.aws_eks_cluster_auth.cluster.token
