@@ -8,7 +8,7 @@ app:
     max: 10
     cpu: 60
     image: yp3yp3/to_do_list
-    tag: latest
+    tag: 2
   Service:
     type: ClusterIP
     port: 5000
