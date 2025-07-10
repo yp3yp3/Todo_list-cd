@@ -22,7 +22,7 @@ resource "helm_release" "argocd" {
   },
   {
     name = "server.ingress.annotations"
-    value = 'nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"'
+    value = {nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"}
   }
   ]
   depends_on = [module.eks]
