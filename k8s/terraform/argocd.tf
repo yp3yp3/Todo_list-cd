@@ -1,3 +1,9 @@
+provider "kubectl" {
+  host                   = module.eks.cluster_endpoint
+  token                  = data.aws_eks_cluster_auth.cluster.token
+  cluster_ca_certificate = base64decode(module.eks.cluster_certificate_authority_data)
+  
+}
 resource "helm_release" "argocd" {
   name       = "argocd"
   repository = "https://argoproj.github.io/argo-helm"
@@ -37,4 +43,8 @@ output "argocd_admin_password" {
   value     = data.kubernetes_secret.argocd_admin_password.data["password"]
   sensitive = true
   
+}
+
+resource "kubectl_manifest" "root_app" {
+  yaml_body = file("../argo/root-app.yaml")
 }
