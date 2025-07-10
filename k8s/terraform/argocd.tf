@@ -17,7 +17,7 @@ resource "helm_release" "argocd" {
   },
 
    {
-    name  = "server.ingress.hosts[0]"
+    name  = "server.ingress.hostname"
     value = "argocd.yp3yp3.site" # Replace with your actual domain
   }
   ]
