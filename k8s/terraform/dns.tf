@@ -3,7 +3,7 @@ data "aws_route53_zone" "mysite" {
 }
 data "kubernetes_service" "nginx_ingress_lb" {
   metadata {
-    name      = "nginx-ingress-controller"
+    name      = "nginx-ingress-ingress-nginx-controller"
     namespace = "ingress-nginx"
   }
 }
