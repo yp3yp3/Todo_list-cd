@@ -19,6 +19,10 @@ resource "helm_release" "argocd" {
    {
     name  = "server.ingress.hostname"
     value = "argocd.yp3yp3.site" # Replace with your actual domain
+  },
+  {
+    name = "server.ingress.annotations"
+    value = 'nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"'
   }
   ]
   depends_on = [module.eks]
