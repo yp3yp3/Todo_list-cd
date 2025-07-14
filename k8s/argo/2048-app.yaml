@@ -12,8 +12,13 @@ spec:
     targetRevision: 0.1.1
     chart: game-2048
     helm:
-      valueFiles:
-        - values.yaml
+      parameters:
+        - name: ingress.tls.secretName
+          value: 'null'
+        - name: ingress.enabled
+          value: 'true'
+        - name: ingress.host
+          value: 2048.yp3yp3.site
   sources: []
   project: default
   syncPolicy:
