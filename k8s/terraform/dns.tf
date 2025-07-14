@@ -4,7 +4,7 @@ data "aws_route53_zone" "mysite" {
 data "kubernetes_service" "nginx_ingress_lb" {
   metadata {
     name      = "nginx-ingress-ingress-nginx-controller"
-    namespace = "ingress-nginx"
+    namespace = helm_release.nginx_ingress.metadata[0].namespace
   }
 }
 resource "aws_route53_record" "ingress_record" {
