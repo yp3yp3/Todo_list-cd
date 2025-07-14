@@ -39,12 +39,9 @@ output "argocd_admin_password" {
   sensitive = true
   
 }
-resource "time_sleep" "wait_for_nodes" {
-  depends_on = [module.eks]
-  create_duration = "60s"              
-}
+
 
 resource "kubernetes_manifest" "root-app" {
   manifest = yamldecode(file("../argo/root-app.yaml"))
-  depends_on = [helm_release.argocd, time_sleep.wait_for_nodes]
+  depends_on = [helm_release.argocd, module.eks]
 }
