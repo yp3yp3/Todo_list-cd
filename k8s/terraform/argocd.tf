@@ -41,7 +41,7 @@ output "argocd_admin_password" {
 }
 
 
-# resource "kubernetes_manifest" "root-app" {
-#   manifest = yamldecode(file("../argo/root-app.yaml"))
-#   depends_on = [helm_release.argocd, module.eks]
-# }
+resource "kubernetes_manifest" "root-app" {
+  manifest = yamldecode(file("../argo/root-app.yaml"))
+  depends_on = [helm_release.argocd, module.eks]
+}
