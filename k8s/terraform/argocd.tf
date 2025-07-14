@@ -31,7 +31,7 @@ resource "helm_release" "argocd" {
 data "kubernetes_secret" "argocd_admin_password" {
   metadata {
     name      = "argocd-initial-admin-secret"
-    namespace = helm_release.argocd.metadata[0].namespace
+    namespace = helm_release.argocd.metadata.namespace
   }
 }
 output "argocd_admin_password" {
