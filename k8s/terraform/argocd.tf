@@ -40,7 +40,7 @@ output "argocd_admin_password" {
   
 }
 resource "time_sleep" "wait_for_nodes" {
-  depends_on = [data.aws_eks_node_group.default]
+  depends_on = [module.eks]
   create_duration = "60s"              
 }
 
