@@ -26,7 +26,7 @@ resource "helm_release" "argocd" {
       value = "HTTPS"
   }
   ]
-  depends_on = [module.eks]
+  depends_on = [module.eks, helm_release.nginx_ingress]
 }
 data "kubernetes_secret" "argocd_admin_password" {
   metadata {
@@ -41,7 +41,7 @@ output "argocd_admin_password" {
 }
 
 
-# resource "kubernetes_manifest" "root-app" {
-#   manifest = yamldecode(file("../argo/root-app.yaml"))
-#   depends_on = [helm_release.argocd, module.eks]
-# }
+resource "kubernetes_manifest" "root-app" {
+  manifest = yamldecode(file("../argo/root-app.yaml"))
+  depends_on = [helm_release.argocd, module.eks]
+}
