@@ -12,8 +12,8 @@ spec:
     targetRevision: HEAD
     directory:
       recurse: true
-  # dependencies:
-  #   - prometheus
+  dependencies:
+    - prometheus
   sources: []
   project: ''
   syncPolicy:
