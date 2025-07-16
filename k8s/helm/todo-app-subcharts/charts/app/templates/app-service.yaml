@@ -10,7 +10,7 @@ spec:
   - port: {{ .Values.Service.port }}
     protocol: TCP
     targetPort: {{ .Values.Service.port }}
-    name: https
+    name: http
   selector:
     app: todo-app
   type: {{ .Values.Service.type | default "ClusterIP" }}
