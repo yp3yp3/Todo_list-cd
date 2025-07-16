@@ -36,12 +36,12 @@ data "kubernetes_secret" "argocd_admin_password" {
 }
 output "argocd_admin_password" {
   value     = data.kubernetes_secret.argocd_admin_password.data["password"]
-  sensitive = true
+ # sensitive = true
   
 }
 
 
-resource "kubernetes_manifest" "root-app" {
-  manifest = yamldecode(file("../argo/root-app.yaml"))
-  depends_on = [helm_release.argocd, module.eks]
-}
+# resource "kubernetes_manifest" "root-app" {
+#   manifest = yamldecode(file("../argo/root-app.yaml"))
+#   depends_on = [helm_release.argocd, module.eks]
+# }

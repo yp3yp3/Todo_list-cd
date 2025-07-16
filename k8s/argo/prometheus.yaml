@@ -1,38 +1,38 @@
-apiVersion: argoproj.io/v1alpha1
-kind: Application
-metadata:
-  name: kube-prometheus-stack
-  namespace: argocd
-spec:
-  project: default
-  source:
-    chart: kube-prometheus-stack
-    repoURL: https://prometheus-community.github.io/helm-charts
-    targetRevision: 58.3.0  
-    helm:
-      valueFiles:
-        - values.yaml  
-      values: |
-        grafana:
-          ingress:
-            enabled: true
-            hosts:
-              - grafana.yp3yp3.site
-        prometheus:
-          ingress:
-            enabled: true
-            hosts:
-              - prometheus.yp3yp3.site
-        alertmanager:
-          ingress:
-            enabled: true
-            hosts:
-              - alertmanager.yp3yp3.site
-  destination:
-    server: https://kubernetes.default.svc
-    namespace: monitoring
-  syncPolicy:
-    automated:
-      prune: true
-      selfHeal: true
-    CreateNamespace: true
+# apiVersion: argoproj.io/v1alpha1
+# kind: Application
+# metadata:
+#   name: kube-prometheus-stack
+#   namespace: argocd
+# spec:
+#   project: default
+#   source:
+#     chart: kube-prometheus-stack
+#     repoURL: https://prometheus-community.github.io/helm-charts
+#     targetRevision: 58.3.0  
+#     helm:
+#       valueFiles:
+#         - values.yaml  
+#       values: |
+#         grafana:
+#           ingress:
+#             enabled: true
+#             hosts:
+#               - grafana.yp3yp3.site
+#         prometheus:
+#           ingress:
+#             enabled: true
+#             hosts:
+#               - prometheus.yp3yp3.site
+#         alertmanager:
+#           ingress:
+#             enabled: true
+#             hosts:
+#               - alertmanager.yp3yp3.site
+#   destination:
+#     server: https://kubernetes.default.svc
+#     namespace: monitoring
+#   syncPolicy:
+#     automated:
+#       prune: true
+#       selfHeal: true
+#     CreateNamespace: true
