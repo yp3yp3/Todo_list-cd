@@ -23,7 +23,6 @@ metadata:
 spec:
   endpoints:
   - port: metrics
-  jobLabel: k8s-app
   namespaceSelector:
     matchNames:
     - argocd
