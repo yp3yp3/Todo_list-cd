@@ -14,24 +14,27 @@ spec:
         app: mysql-exporter
     spec:
       containers:
-      - name: mysql-exporter
-        image: prom/mysqld-exporter
-        ports:
-        - containerPort: 9104
-
-        env:
-          - name: MYSQL_USER
-            valueFrom:
-              configMapKeyRef:
-                name: todo-app
-                key: MYSQL_USER
-          - name: MYSQL_PASSWORD
-            valueFrom:
-              secretKeyRef:
-                name: todo-app
-                key: MYSQL_PASSWORD
-          - name: DATA_SOURCE_NAME
-            value: "$(MYSQL_USER):$(MYSQL_PASSWORD)@(mysql-svc:3306)/"
+        - name: mysql-exporter
+          image: prom/mysqld-exporter
+          ports:
+            - containerPort: 9104
+          env:
+            - name: MYSQL_USER
+              valueFrom:
+                configMapKeyRef:
+                  name: todo-app
+                  key: MYSQL_USER
+            - name: MYSQL_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: todo-app
+                  key: MYSQL_PASSWORD
+          command:
+            - /bin/sh
+            - -c
+            - |
+              export DATA_SOURCE_NAME="${MYSQL_USER}:${MYSQL_PASSWORD}@(mysql-svc:3306)/"
+              /bin/mysqld_exporter
 ---
 apiVersion: v1
 kind: Service
