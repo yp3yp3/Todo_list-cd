@@ -15,16 +15,24 @@ spec:
     spec:
       containers:
         - name: mysql-exporter
-          image: prom/mysqld-exporter:latest   # השאר או נעל tag מפורש
+          image: prom/mysqld-exporter:0.17.2   # או גרסה קבועה אחרת
           ports:
             - containerPort: 9104
           env:
+            # שם-המשתמש לשאיבה מה-ConfigMap
             - name: MYSQL_USER
               valueFrom:
                 configMapKeyRef:
                   name: todo-app
                   key: MYSQL_USER
+            # סיסמה לשימוש פנימי
             - name: MYSQL_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: todo-app
+                  key: MYSQL_PASSWORD
+            # הסיסמה כפי שה-exporter מצפה לה
+            - name: MYSQLD_EXPORTER_PASSWORD
               valueFrom:
                 secretKeyRef:
                   name: todo-app
@@ -34,9 +42,8 @@ spec:
             - -c
             - |
               exec mysqld_exporter \
-                --mysqld.address=mysql-svc:3306 \
-                --mysqld.username="$MYSQL_USER" \
-                --mysqld.password="$MYSQL_PASSWORD"
+                   --mysqld.address=mysql-svc:3306 \
+                   --mysqld.username="$MYSQL_USER"
 
 ---
 apiVersion: v1
