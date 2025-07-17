@@ -13,19 +13,19 @@ spec:
       port: 8082
       targetPort: 8082
 ---
-apiVersion: monitoring.coreos.com/v1
-kind: ServiceMonitor
-metadata:
-  labels:
-    release: kube-prometheus-stack
-  name: argocd-application-controller
-  namespace: monitoring
-spec:
-  endpoints:
-  - port: metrics
-  namespaceSelector:
-    matchNames:
-    - argocd
-  selector:
-    matchLabels:
-      app.kubernetes.io/name: argocd-application-controller
+# apiVersion: monitoring.coreos.com/v1
+# kind: ServiceMonitor
+# metadata:
+#   labels:
+#     release: kube-prometheus-stack
+#   name: argocd-application-controller
+#   namespace: monitoring
+# spec:
+#   endpoints:
+#   - port: metrics
+#   namespaceSelector:
+#     matchNames:
+#     - argocd
+#   selector:
+#     matchLabels:
+#       app.kubernetes.io/name: argocd-application-controller
