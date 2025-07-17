@@ -2,37 +2,46 @@ apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
   name: kube-prometheus-stack
+  namespace: argocd
 spec:
-  destination:
-    namespace: monitoring
-    server: https://kubernetes.default.svc
+  project: default
   source:
-    path: ''
     repoURL: https://prometheus-community.github.io/helm-charts
     targetRevision: 75.10.0
     chart: kube-prometheus-stack
     helm:
       values: |
-        prometheus:
-          ingress:
-            enabled: true
-            ingressClassName: nginx
-            hosts:
-              - prometheus.yp3yp3.site
         grafana:
           ingress:
             enabled: true
             ingressClassName: nginx
+            annotations:
+              nginx.ingress.kubernetes.io/backend-protocol: "HTTP"
             hosts:
               - grafana.yp3yp3.site
+
+        prometheus:
+          ingress:
+            enabled: true
+            ingressClassName: nginx
+            annotations:
+              nginx.ingress.kubernetes.io/backend-protocol: "HTTP"
+            hosts:
+              - prometheus.yp3yp3.site
+
         alertmanager:
           ingress:
             enabled: true
             ingressClassName: nginx
+            annotations:
+              nginx.ingress.kubernetes.io/backend-protocol: "HTTP"
             hosts:
               - alertmanager.yp3yp3.site
-  sources: []
-  project: default
+
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: monitoring
+
   syncPolicy:
     automated:
       prune: true
