@@ -1,5 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mysql-exporter
+  namespace: todo-stage
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mysql-exporter
+  template:
+    metadata:
+      labels:
+        app: mysql-exporter
+    spec:
+      containers:
         - name: mysql-exporter
-          image: prometheus/mysqld-exporter:v0.17.0
+          image: prom/mysqld-exporter:v0.17.2   # ← עם v
           ports:
             - containerPort: 9104
           env:
@@ -13,7 +29,7 @@
                 secretKeyRef:
                   name: todo-app
                   key: MYSQL_PASSWORD
-            - name: MYSQLD_EXPORTER_PASSWORD
+            - name: MYSQLD_EXPORTER_PASSWORD   # כך ה-exporter מצפה לקבל את הסיסמה
               valueFrom:
                 secretKeyRef:
                   name: todo-app
@@ -23,8 +39,8 @@
             - -c
             - |
               exec mysqld_exporter \
-                --mysqld.address=mysql-svc:3306 \
-                --mysqld.username="$MYSQL_USER"
+                   --mysqld.address=mysql-svc:3306 \
+                   --mysqld.username="$MYSQL_USER"
 
 ---
 apiVersion: v1
