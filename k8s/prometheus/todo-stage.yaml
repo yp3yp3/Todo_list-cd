@@ -1,3 +1,67 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mysql-exporter
+  namespace: todo-stage
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mysql-exporter
+  template:
+    metadata:
+      labels:
+        app: mysql-exporter
+    spec:
+      containers:
+      - name: mysql-exporter
+        image: prom/mysqld-exporter
+        ports:
+        - containerPort: 9104
+
+        env:
+          - name: MYSQL_USER
+            valueFrom:
+              configMapKeyRef:
+                name: todo-app
+                key: MYSQL_USER
+          - name: MYSQL_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: todo-app
+                key: MYSQL_PASSWORD
+          - name: DATA_SOURCE_NAME
+            value: "$(MYSQL_USER):$(MYSQL_PASSWORD)@(mysql-svc:3306)/"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: mysql-exporter
+  labels:
+    app: mysql-exporter
+  namespace: todo-stage
+spec:
+  ports:
+  - port: 9104
+    name: http
+  selector:
+    app: mysql-exporter
+---
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: mysql-exporter
+  namespace: monitoring
+  labels:
+    release: kube-prometheus-stack
+spec:
+  selector:
+    matchLabels:
+      app: mysql-exporter
+  endpoints:
+  - port: http
+    interval: 15s
+---
 apiVersion: monitoring.coreos.com/v1
 kind: ServiceMonitor
 metadata:
