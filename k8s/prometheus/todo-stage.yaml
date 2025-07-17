@@ -65,6 +65,9 @@ metadata:
   labels:
     release: kube-prometheus-stack
 spec:
+  namespaceSelector:
+    matchNames:
+    - todo-stage
   selector:
     matchLabels:
       app: mysql-exporter
