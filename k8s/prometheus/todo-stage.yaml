@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: mysql-exporter
-          image: prom/mysqld-exporter
+          image: prom/mysqld-exporter:latest   # השאר או נעל tag מפורש
           ports:
             - containerPort: 9104
           env:
@@ -33,8 +33,11 @@ spec:
             - /bin/sh
             - -c
             - |
-              export DATA_SOURCE_NAME="${MYSQL_USER}:${MYSQL_PASSWORD}@(mysql-svc:3306)/"
-              /bin/mysqld_exporter
+              exec mysqld_exporter \
+                --mysqld.address=mysql-svc:3306 \
+                --mysqld.username="$MYSQL_USER" \
+                --mysqld.password="$MYSQL_PASSWORD"
+
 ---
 apiVersion: v1
 kind: Service
