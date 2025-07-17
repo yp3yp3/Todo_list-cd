@@ -10,8 +10,8 @@ spec:
   - name: flask.rules
     rules:
     - alert: HighRequestRate
-      expr: rate(flask_http_request_total[1m]) > 10
-      for: 2m
+      expr: rate(flask_http_request_total[1m]) > 1
+      for: 10s
       labels:
         severity: warning
     - alert: MysqlHighConnections
